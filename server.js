@@ -11,6 +11,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/items", itemsRouter);
 
+app.get("/", function(req, res) {
+  res.json(path.join(__dirname, "/index.html"));
+});
 
 
 app.listen(port, function(){

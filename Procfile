@@ -1,1 +1,1 @@
-web: run nodemon index.js
+web: run nodemon server.js

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
+const userSchema =  new mongoose.Schema({
     firstName: {
         type: String,
     },
@@ -29,6 +29,22 @@ const userSchema = mongoose.Schema({
 }, {
     timestamps: true
 })
+
+userSchema.statics.findByLogin = async function (login) {
+    let user = await this.findOne({
+      userName: login,
+    });
+   
+    if (!user) {
+      user = await this.findOne({ email: login });
+    }
+   
+    return user;
+  };
+
+userSchema.pre('remove', function(next) {
+    this.model('Item').deleteMany({ user: this._id }, next);
+});
 
 const User = mongoose.model('User', userSchema)
 

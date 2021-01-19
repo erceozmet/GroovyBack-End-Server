@@ -7,15 +7,16 @@ const itemSchema = mongoose.Schema({
     itemType:{
         type: String,
     },
-    id: {
-        type: Number
-    },
     age:{
         type: Number
     },
     price:{
         type: Number
-    }
+    },
+    description:{
+        type: String,
+    },
+    seller: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 
 }, {
     timestamps: true

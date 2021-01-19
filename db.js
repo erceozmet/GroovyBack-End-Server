@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const User  = require('./models/usersModel.js')
-
+const User = require('./models/usersModel.js')
+const Item =  require('./models/itemsModel.js')
+ 
 const connectDB = async () => {
     try {
         //database Name

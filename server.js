@@ -9,7 +9,6 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const itemsRouter = require("./routes/items");
 
-
 connectDB();
 
 app.use(logger('dev'));

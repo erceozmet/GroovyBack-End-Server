@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-let items = require("../dummyDatabase")
 
+const mongoose = require('mongoose');
+const items = mongoose.model('Item')
 
 router.get("/list", async (req, res) => {
     try {

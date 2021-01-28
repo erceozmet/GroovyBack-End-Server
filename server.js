@@ -12,6 +12,7 @@ const logger = require("morgan");
 
 //Routing
 const itemsRouter = require("./routes/items");
+const userRouter = require("./routes/user.js");
 
 //Database
 
@@ -19,6 +20,8 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/items", itemsRouter);
+app.use("/user", userRouter);
+
 
 const eraseDatabaseOnSync = true;
 connectDB().then(async () => {
@@ -26,6 +29,7 @@ connectDB().then(async () => {
     await Promise.all([
       User.deleteMany({}),
       Item.deleteMany({}),
+
     ]);
     createUsersWithMessages();
 
@@ -41,27 +45,36 @@ connectDB().then(async () => {
 
 
 const createUsersWithMessages = async () => {
-  const user1 = new User({
-    firstName: 'Ali',
-    secondName: 'Sicim',
-    userName: 'rwieruch',
-    email: 'ali.sicim@gmail.com',
-    password: "woijdaom2120",
-    isAdmin: false
-  });
-
   const item1 = new Item({ 
     itemName: "Aliye", 
     itemType: "jewellery",
     age: 12,
     price: 12, 
     description: "Yarrak gibi masallah", 
-    seller: user1.id
-  })
+    
+  });
+
+  const user1 = new User({
+    firstName: 'Ali',
+    lastName: 'Sicim',
+    userName: 'rwieruch',
+    email: 'ali.sicim@gmail.com',
+    password: "woijdaom2120",
+    isAdmin: false,
+    items: item1.id
+  });
+
+ 
 
   
-  await user1.save();
+  await user1.save((err, document) => {
+   
+  });
+
   await item1.save();
+  // console.log(item1)
+  
+  item1.seller = user1.id
 };
 
 module.exports = app;
